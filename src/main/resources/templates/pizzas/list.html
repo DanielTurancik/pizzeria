@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="sk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ponuka pízz</title>
+</head>
+<body>
+<h1>Ponuka pízz</h1>
+
+<form method="get" action="/pizze">
+    <input type="text" name="q" placeholder="Hľadať pizzu..." th:value="${q}">
+    <button type="submit">Hľadať</button>
+</form>
+
+<hr>
+
+<ul>
+    <li th:each="p : ${pizzas}">
+        <div>
+            <strong th:text="${p.name}">Názov</strong>
+            <span th:text="${p.description}">Popis</span>
+        </div>
+        <div th:if="${p.imageUrl != null}">
+            <img th:src="${p.imageUrl}" alt="pizza" style="max-width:200px;">
+        </div>
+    </li>
+</ul>
+</body>
+</html>
