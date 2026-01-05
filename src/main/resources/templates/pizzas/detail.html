@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="sk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${pizza.name}">Detail pizze</title>
+</head>
+<body>
+
+<a href="/pizze">← späť na ponuku</a>
+
+<h1 th:text="${pizza.name}">Názov</h1>
+<p th:text="${pizza.description}">Popis</p>
+
+<div th:if="${pizza.imageUrl != null}">
+    <img th:src="${pizza.imageUrl}" alt="pizza" style="max-width:400px;">
+</div>
+
+<h2>Veľkosti</h2>
+<ul>
+    <li th:each="s : ${pizza.sizes}">
+        <span th:text="${s.sizeName}">M</span>
+        -
+        <span th:text="${s.diameterCm}">40</span> cm
+        -
+        <strong th:text="${s.price}">9.90</strong> €
+    </li>
+</ul>
+
+</body>
+</html>

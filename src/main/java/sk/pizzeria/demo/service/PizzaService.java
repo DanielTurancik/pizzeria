@@ -21,4 +21,8 @@ public class PizzaService {
         }
         return pizzaRepository.findByNameContainingIgnoreCaseAndActiveTrue(q.trim());
     }
+    public Pizza getBySlugOrThrow(String slug) {
+        return pizzaRepository.findBySlug(slug)
+                .orElseThrow(() -> new IllegalArgumentException("Pizza not found: " + slug));
+    }
 }

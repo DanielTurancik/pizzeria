@@ -17,11 +17,15 @@
 <ul>
     <li th:each="p : ${pizzas}">
         <div>
-            <strong th:text="${p.name}">Názov</strong>
+            <a th:href="@{'/pizza/' + ${p.slug}}">
+                <strong th:text="${p.name}">Názov</strong>
+            </a>
             <span th:text="${p.description}">Popis</span>
         </div>
         <div th:if="${p.imageUrl != null}">
-            <img th:src="${p.imageUrl}" alt="pizza" style="max-width:200px;">
+            <a th:href="@{'/pizza/' + ${p.slug}}">
+                <img th:src="${p.imageUrl}" alt="pizza" style="max-width:200px; cursor:pointer;">
+            </a>
         </div>
     </li>
 </ul>
