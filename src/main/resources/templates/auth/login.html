@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="sk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Prihlásenie</title>
+</head>
+<body>
+<h1>Prihlásenie</h1>
+
+<form th:action="@{/login}" method="post">
+    <div>
+        <label for="username">E-mail</label>
+        <input id="username" name="username" type="text" autocomplete="username" required>
+    </div>
+    <div>
+        <label for="password">Heslo</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+    </div>
+    <button type="submit">Prihlásiť sa</button>
+</form>
+
+<div th:if="${param.error}">
+    Nesprávne prihlasovacie údaje.
+</div>
+<div th:if="${param.logout}">
+    Boli ste odhlásený.
+</div>
+</body>
+</html>
