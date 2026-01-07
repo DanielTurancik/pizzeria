@@ -8,12 +8,16 @@
         <a th:href="@{/pizze}">Pizzas</a>
 
         <span sec:authorize="isAuthenticated()">
-            \| Logged in as: <strong sec:authentication="name">email</strong>
-            \| Roles: <span sec:authentication="authorities">roles</span>
-            \| <a th:href="@{/cart}">Cart</a>
+            | Logged in as: <strong sec:authentication="name">email</strong>
+            | Roles: <span sec:authentication="authorities">roles</span>
+            | <a th:href="@{/cart}">Cart</a>
 
             <a sec:authorize="hasRole('COOK')" th:href="@{/kuchar/orders}">
                 Kitchen orders
+            </a>
+
+            <a sec:authorize="hasRole('COURIER')" th:href="@{/kurier/orders}">
+                Courier orders
             </a>
 
             <form th:action="@{/logout}" method="post" style="display:inline;">
@@ -22,7 +26,7 @@
         </span>
 
         <span sec:authorize="isAnonymous()">
-            \| <a th:href="@{/login}">Login</a>
+            | <a th:href="@{/login}">Login</a>
         </span>
     </div>
     <hr>

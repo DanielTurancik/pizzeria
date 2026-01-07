@@ -25,6 +25,7 @@ public class SecurityConfig {
                         .requestMatchers("/cart/**").authenticated()
 
                         .requestMatchers("/kuchar/orders/**").hasAnyRole("COOK")
+                        .requestMatchers("/kurier/orders/**").hasAnyRole("COURIER")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/kuchar/**").hasAnyRole("COOK", "ADMIN")
                         .requestMatchers("/kurier/**").hasAnyRole("COURIER", "ADMIN")

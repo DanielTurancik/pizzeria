@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="sk" xmlns:th="http://www.thymeleaf.org">
+<html lang="sk"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Košík</title>
 </head>
 <body>
 
-<a href="/pizze">← späť na ponuku</a>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <h1>Košík</h1>
 
-<div th:if="${#lists.isEmpty(items)}">
-    Košík je prázdny.
-</div>
+<div th:if="${#lists.isEmpty(items)}">Košík je prázdny.</div>
 
 <table th:if="${!#lists.isEmpty(items)}" border="1" cellpadding="6">
     <thead>
@@ -20,14 +20,14 @@
         <th>Pizza</th>
         <th>Veľkosť</th>
         <th>Cena</th>
-        <th>Množstvo</th>
+        <th>Kusov</th>
         <th>Akcie</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="i : ${items}">
-        <td th:text="${i.pizzaSize.pizza.name}">Pizza</td>
-        <td th:text="${i.pizzaSize.sizeName + ' / ' + i.pizzaSize.diameterCm + 'cm'}">M</td>
+        <td th:text="${i.pizzaSize.pizza.name}">name</td>
+        <td th:text="${i.pizzaSize.sizeName}">M</td>
         <td th:text="${i.pizzaSize.price}">0.00</td>
         <td th:text="${i.quantity}">1</td>
         <td>
@@ -44,6 +44,21 @@
     </tr>
     </tbody>
 </table>
+
+<div th:if="${!#lists.isEmpty(items)}">
+    <h2>Vytvoriť objednávku</h2>
+    <form th:action="@{/checkout}" method="post">
+        <div>
+            <label for="deliveryAddress">Adresa doručenia (ak prázdne, použije sa adresa profilu)</label><br>
+            <input id="deliveryAddress" name="deliveryAddress" type="text" style="width: 380px;">
+        </div>
+        <div>
+            <label for="note">Poznámka</label><br>
+            <textarea id="note" name="note" rows="3" style="width: 380px;"></textarea>
+        </div>
+        <button type="submit">Objednať</button>
+    </form>
+</div>
 
 </body>
 </html>

@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="sk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Objednávka</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<h1>Objednávka \#<span th:text="${order.id}">1</span></h1>
+
+<ul>
+    <li>Stav: <strong th:text="${order.status}">status</strong></li>
+    <li>Suma: <strong th:text="${order.totalPrice}">0.00</strong> €</li>
+    <li>Adresa: <span th:text="${order.deliveryAddress}">addr</span></li>
+    <li th:if="${order.note != null && !order.note.isBlank()}">Poznámka: <span th:text="${order.note}">note</span></li>
+</ul>
+
+<a href="/orders">Späť na moje objednávky</a>
+
+</body>
+</html>

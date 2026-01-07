@@ -1,7 +1,6 @@
 package sk.pizzeria.demo.entity;
 
 import jakarta.persistence.*;
-
 import java.math.BigDecimal;
 
 @Entity
@@ -11,6 +10,8 @@ public class Order {
     public static final String STATUS_PENDING = "čaká_na_potvrdenie";
     public static final String STATUS_PREPARING = "pripravuje_sa";
     public static final String STATUS_READY = "pripravené";
+    public static final String STATUS_DELIVERING = "doručuje_sa";
+    public static final String STATUS_DELIVERED = "doručené";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +39,10 @@ public class Order {
     @JoinColumn(name = "cook_user_id")
     private User cook;
 
-    // getters/setters
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "courier_user_id")
+    private User courier;
+
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 
@@ -59,4 +63,7 @@ public class Order {
 
     public User getCook() { return cook; }
     public void setCook(User cook) { this.cook = cook; }
+
+    public User getCourier() { return courier; }
+    public void setCourier(User courier) { this.courier = courier; }
 }

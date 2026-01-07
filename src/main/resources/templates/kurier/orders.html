@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="sk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Kuriér - objednávky</title>
+</head>
+<body>
+
+<a href="/pizze">← späť na ponuku</a>
+
+<h1>Kuriér - objednávky</h1>
+
+<h2>Objednávky na doručenie (「ready」, bez kuriéra)</h2>
+<div th:if="${#lists.isEmpty(openReady)}">Žiadne pripravené objednávky.</div>
+
+<table th:if="${!#lists.isEmpty(openReady)}" border="1" cellpadding="6">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Zákazník</th>
+        <th>Adresa</th>
+        <th>Suma</th>
+        <th>Stav</th>
+        <th>Akcie</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="o : ${openReady}">
+        <td th:text="${o.id}">1</td>
+        <td th:text="${o.customer.email}">mail</td>
+        <td th:text="${o.deliveryAddress}">addr</td>
+        <td th:text="${o.totalPrice}">0.00</td>
+        <td th:text="${o.status}">status</td>
+        <td>
+            <form th:action="@{'/kurier/orders/' + ${o.id} + '/claim'}" method="post" style="display:inline;">
+                <button type="submit">Prebrať</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2>Moje doručenia</h2>
+<div th:if="${#lists.isEmpty(mine)}">Zatiaľ nemáte priradené objednávky.</div>
+
+<table th:if="${!#lists.isEmpty(mine)}" border="1" cellpadding="6">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Zákazník</th>
+        <th>Adresa</th>
+        <th>Suma</th>
+        <th>Stav</th>
+        <th>Akcie</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="o : ${mine}">
+        <td th:text="${o.id}">1</td>
+        <td th:text="${o.customer.email}">mail</td>
+        <td th:text="${o.deliveryAddress}">addr</td>
+        <td th:text="${o.totalPrice}">0.00</td>
+        <td th:text="${o.status}">status</td>
+        <td>
+            <form th:if="${o.status == 'pripravené'}"
+                  th:action="@{'/kurier/orders/' + ${o.id} + '/delivering'}" method="post" style="display:inline;">
+                <button type="submit">Nastaviť -> delivering</button>
+            </form>
+
+            <form th:if="${o.status == 'doručuje_sa'}"
+                  th:action="@{'/kurier/orders/' + ${o.id} + '/delivered'}" method="post" style="display:inline;">
+                <button type="submit">Nastaviť -> delivered</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
