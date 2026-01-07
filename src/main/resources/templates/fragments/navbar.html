@@ -11,6 +11,7 @@
             | Logged in as: <strong sec:authentication="name">email</strong>
             | Roles: <span sec:authentication="authorities">roles</span>
             | <a th:href="@{/cart}">Cart</a>
+            | <a th:href="@{/profil}">My profile</a>
 
             <a sec:authorize="hasRole('COOK')" th:href="@{/kuchar/orders}">
                 Kitchen orders
