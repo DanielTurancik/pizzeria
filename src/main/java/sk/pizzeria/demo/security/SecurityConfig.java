@@ -2,7 +2,6 @@ package sk.pizzeria.demo.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,7 +19,12 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/pizze", "/pizza/**", "/login", "/403", "/css/**", "/js/**", "/images/**").permitAll()
+                        .requestMatchers("/", "/pizze", "/pizza/**", "/login", "/403", "/css/**", "/js/**", "/images/**")
+                        .permitAll()
+
+                        .requestMatchers("/cart/**").authenticated()
+
+                        .requestMatchers("/kuchar/orders/**").hasAnyRole("COOK")
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/kuchar/**").hasAnyRole("COOK", "ADMIN")
                         .requestMatchers("/kurier/**").hasAnyRole("COURIER", "ADMIN")
@@ -28,7 +32,6 @@ public class SecurityConfig {
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        // optional: always go to home after login
                         .defaultSuccessUrl("/", true)
                         .permitAll()
                 )

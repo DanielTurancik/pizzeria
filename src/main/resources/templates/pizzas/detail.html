@@ -1,5 +1,7 @@
 <!doctype html>
-<html lang="sk" xmlns:th="http://www.thymeleaf.org">
+<html lang="sk"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title th:text="${pizza.name}">Detail pizze</title>
@@ -19,10 +21,22 @@
 <ul>
     <li th:each="s : ${pizza.sizes}">
         <span th:text="${s.sizeName}">M</span>
-        -
+        \-
         <span th:text="${s.diameterCm}">40</span> cm
-        -
+        \-
         <strong th:text="${s.price}">9.90</strong> €
+
+        <span sec:authorize="isAuthenticated()">
+            <form th:action="@{/cart/add}" method="post" style="display:inline;">
+                <input type="hidden" name="pizzaSizeId" th:value="${s.id}">
+                <input type="hidden" name="quantity" value="1">
+                <input type="hidden" name="returnTo" th:value="@{'/pizza/' + ${pizza.slug}}">
+                <button type="submit">Add to cart</button>
+            </form>
+        </span>
+        <span sec:authorize="isAnonymous()">
+            <a th:href="@{/login}">Login to add to cart</a>
+        </span>
     </li>
 </ul>
 

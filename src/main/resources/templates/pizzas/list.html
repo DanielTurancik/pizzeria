@@ -1,25 +1,14 @@
 <!doctype html>
-<html lang="sk" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="sk"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Ponuka pízz</title>
 </head>
 <body>
 
-<div>
-    <span sec:authorize="isAuthenticated()">
-        Logged in as: <strong sec:authentication="name">email</strong>
-        \| Roles: <span sec:authentication="authorities">roles</span>
-
-        <form th:action="@{/logout}" method="post" style="display:inline;">
-            <button type="submit">Logout</button>
-        </form>
-    </span>
-
-    <span sec:authorize="isAnonymous()">
-        <a th:href="@{/login}">Login</a>
-    </span>
-</div>
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <h1>Ponuka pízz</h1>
 

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="sk"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div th:fragment="navbar">
+    <div>
+        <a th:href="@{/pizze}">Pizzas</a>
+
+        <span sec:authorize="isAuthenticated()">
+            \| Logged in as: <strong sec:authentication="name">email</strong>
+            \| Roles: <span sec:authentication="authorities">roles</span>
+            \| <a th:href="@{/cart}">Cart</a>
+
+            <a sec:authorize="hasRole('COOK')" th:href="@{/kuchar/orders}">
+                Kitchen orders
+            </a>
+
+            <form th:action="@{/logout}" method="post" style="display:inline;">
+                <button type="submit">Logout</button>
+            </form>
+        </span>
+
+        <span sec:authorize="isAnonymous()">
+            \| <a th:href="@{/login}">Login</a>
+        </span>
+    </div>
+    <hr>
+</div>
+</body>
+</html>
