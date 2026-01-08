@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="sk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registrácia</title>
+</head>
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<h1>Registrácia</h1>
+
+<div th:if="${errorMessage != null}" th:text="${errorMessage}" style="color:red;"></div>
+<p th:text="${passwordHint}">Password rules...</p>
+
+<form th:action="@{/register}" th:object="${form}" method="post">
+    <div>
+        <label>E-mail</label>
+        <input type="email" th:field="*{email}" required>
+        <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red;"></div>
+    </div>
+
+    <div>
+        <label>Password</label>
+        <input type="password" th:field="*{password}" required>
+        <div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color:red;"></div>
+    </div>
+
+    <div>
+        <label>First name</label>
+        <input type="text" th:field="*{firstName}" required>
+        <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="color:red;"></div>
+    </div>
+
+    <div>
+        <label>Last name</label>
+        <input type="text" th:field="*{lastName}" required>
+        <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color:red;"></div>
+    </div>
+
+    <div>
+        <label>Phone</label>
+        <input type="text" th:field="*{phoneNumber}">
+        <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" style="color:red;"></div>
+    </div>
+
+    <div>
+        <label>Address</label>
+        <input type="text" th:field="*{address}" style="width: 380px;">
+        <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color:red;"></div>
+    </div>
+
+    <div>
+        <label>Profile image URL</label>
+        <input type="text" th:field="*{profileImageUrl}" style="width: 380px;">
+        <div th:if="${#fields.hasErrors('profileImageUrl')}" th:errors="*{profileImageUrl}" style="color:red;"></div>
+    </div>
+
+    <button type="submit">Create account</button>
+</form>
+
+<p><a th:href="@{/login}">Back to login</a></p>
+
+</body>
+</html>

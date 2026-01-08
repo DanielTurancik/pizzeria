@@ -1,3 +1,4 @@
+// FILE: src/main/java/sk/pizzeria/demo/security/SecurityConfig.java
 package sk.pizzeria.demo.security;
 
 import org.springframework.context.annotation.Bean;
@@ -19,7 +20,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/pizze", "/pizza/**", "/login", "/403", "/css/**", "/js/**", "/images/**")
+                        .requestMatchers("/", "/pizze", "/pizza/**", "/login", "/register", "/403", "/css/**", "/js/**", "/images/**")
                         .permitAll()
 
                         .requestMatchers("/cart/**").authenticated()

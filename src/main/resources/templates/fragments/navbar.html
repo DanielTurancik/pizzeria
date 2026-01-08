@@ -1,3 +1,4 @@
+<!-- FILE: src/main/resources/templates/fragments/navbar.html -->
 <!doctype html>
 <html lang="sk"
       xmlns:th="http://www.thymeleaf.org"
@@ -12,6 +13,8 @@
             | Roles: <span sec:authentication="authorities">roles</span>
             | <a th:href="@{/cart}">Cart</a>
             | <a th:href="@{/profil}">My profile</a>
+            | <a th:href="@{/profil/edit}">Edit profile</a>
+            | <a th:href="@{/profil/password}">Change password</a>
 
             <a sec:authorize="hasRole('COOK')" th:href="@{/kuchar/orders}">
                 Kitchen orders
@@ -28,6 +31,7 @@
 
         <span sec:authorize="isAnonymous()">
             | <a th:href="@{/login}">Login</a>
+            | <a th:href="@{/register}">Register</a>
         </span>
     </div>
     <hr>

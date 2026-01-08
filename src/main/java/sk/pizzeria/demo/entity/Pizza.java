@@ -1,4 +1,5 @@
 package sk.pizzeria.demo.entity;
+
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,10 +28,18 @@ public class Pizza {
     @Column(name = "active", nullable = false)
     private boolean active = true;
 
+    // NEW: category + tags/brand
+    @Enumerated(EnumType.STRING)
+    @Column(name = "category", length = 30)
+    private PizzaCategory category;
+
+    // Comma-separated tags, e.g. "Vegetarian,Italian,Spicy"
+    @Column(name = "tags_csv", length = 255)
+    private String tagsCsv;
+
     @OneToMany(mappedBy = "pizza", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PizzaSize> sizes = new ArrayList<>();
 
-    // getters/setters
     public Integer getId() { return id; }
     public void setId(Integer id) { this.id = id; }
 
@@ -48,6 +57,12 @@ public class Pizza {
 
     public boolean isActive() { return active; }
     public void setActive(boolean active) { this.active = active; }
+
+    public PizzaCategory getCategory() { return category; }
+    public void setCategory(PizzaCategory category) { this.category = category; }
+
+    public String getTagsCsv() { return tagsCsv; }
+    public void setTagsCsv(String tagsCsv) { this.tagsCsv = tagsCsv; }
 
     public List<PizzaSize> getSizes() { return sizes; }
     public void setSizes(List<PizzaSize> sizes) { this.sizes = sizes; }

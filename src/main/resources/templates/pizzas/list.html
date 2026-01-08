@@ -1,3 +1,4 @@
+<!-- FILE: src/main/resources/templates/pizzas/list.html -->
 <!doctype html>
 <html lang="sk"
       xmlns:th="http://www.thymeleaf.org"
@@ -12,14 +13,30 @@
 
 <h1>Ponuka pízz</h1>
 
-<form method="get" action="/pizze">
+<form method="get" th:action="@{/pizze}">
     <input type="text" name="q" placeholder="Hľadať pizzu..." th:value="${q}">
-    <button type="submit">Hľadať</button>
+
+    <select name="category">
+        <option th:value="${null}" th:selected="${category == null}">Všetky kategórie</option>
+        <option th:each="c : ${categories}"
+                th:value="${c}"
+                th:text="${c}"
+                th:selected="${category == c}">
+            CLASSIC
+        </option>
+    </select>
+
+    <input type="text" name="tag" placeholder="Tag (napr. spicy)" th:value="${tag}">
+
+    <button type="submit">Filtrovať</button>
+    <a th:href="@{/pizze}">Reset</a>
 </form>
 
 <hr>
 
-<ul>
+<div th:if="${#lists.isEmpty(pizzas)}">No pizzas found.</div>
+
+<ul th:if="${!#lists.isEmpty(pizzas)}">
     <li th:each="p : ${pizzas}">
         <div>
             <a th:href="@{'/pizza/' + ${p.slug}}">
@@ -27,6 +44,7 @@
             </a>
             <span th:text="${p.description}">Popis</span>
         </div>
+
         <div th:if="${p.imageUrl != null}">
             <a th:href="@{'/pizza/' + ${p.slug}}">
                 <img th:src="${p.imageUrl}" alt="pizza" style="max-width:200px; cursor:pointer;">
@@ -34,5 +52,6 @@
         </div>
     </li>
 </ul>
+
 </body>
 </html>
