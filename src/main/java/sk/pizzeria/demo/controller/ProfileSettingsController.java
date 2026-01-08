@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import sk.pizzeria.demo.dto.ChangePasswordForm;
 import sk.pizzeria.demo.dto.ProfileEditForm;
 import sk.pizzeria.demo.entity.User;
@@ -50,12 +51,13 @@ public class ProfileSettingsController {
     public String save(@AuthenticationPrincipal UserDetails principal,
                        @Valid @ModelAttribute("form") ProfileEditForm form,
                        BindingResult br,
+                       @RequestParam(value = "avatarFile", required = false) MultipartFile avatarFile,
                        Model model) {
         if (br.hasErrors()) return "profile/edit";
 
         try {
             User me = currentUser(principal);
-            accountService.updateProfile(me.getId(), form);
+            accountService.updateProfile(me.getId(), form, avatarFile);
             return "redirect:/profil?updated";
         } catch (RuntimeException ex) {
             model.addAttribute("errorMessage", ex.getMessage());

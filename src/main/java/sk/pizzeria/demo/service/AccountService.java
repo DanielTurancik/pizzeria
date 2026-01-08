@@ -3,6 +3,7 @@ package sk.pizzeria.demo.service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import sk.pizzeria.demo.dto.ChangePasswordForm;
 import sk.pizzeria.demo.dto.ProfileEditForm;
 import sk.pizzeria.demo.dto.RegisterForm;
@@ -15,10 +16,14 @@ public class AccountService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final AvatarStorageService avatarStorageService;
 
-    public AccountService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AccountService(UserRepository userRepository,
+                          PasswordEncoder passwordEncoder,
+                          AvatarStorageService avatarStorageService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.avatarStorageService = avatarStorageService;
     }
 
     @Transactional
@@ -38,6 +43,7 @@ public class AccountService {
         u.setLastName(form.getLastName().trim());
         u.setPhoneNumber(form.getPhoneNumber());
         u.setAddress(form.getAddress());
+        // Keep URL optional; can be set later via upload.
         u.setProfileImageUrl(form.getProfileImageUrl());
         u.setEnabled(true);
 
@@ -46,7 +52,7 @@ public class AccountService {
     }
 
     @Transactional
-    public void updateProfile(Integer userId, ProfileEditForm form) {
+    public void updateProfile(Integer userId, ProfileEditForm form, MultipartFile avatarFile) {
         User u = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found: " + userId));
 
@@ -54,7 +60,18 @@ public class AccountService {
         u.setLastName(form.getLastName().trim());
         u.setPhoneNumber(form.getPhoneNumber());
         u.setAddress(form.getAddress());
-        u.setProfileImageUrl(form.getProfileImageUrl());
+
+        // If user uploaded a file, prefer it over URL text field.
+        String storedUrl = avatarStorageService.storeAvatar(avatarFile, userId);
+        if (storedUrl != null) {
+            u.setProfileImageUrl(storedUrl);
+        } else {
+            // Keep old image if field is blank; set to new URL if provided.
+            String url = form.getProfileImageUrl();
+            if (url != null && !url.isBlank()) {
+                u.setProfileImageUrl(url.trim());
+            }
+        }
 
         userRepository.save(u);
     }

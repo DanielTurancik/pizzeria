@@ -2,53 +2,61 @@
 <html lang="sk" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Edit profile</title>
+  <title>Upraviť profil</title>
 </head>
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<h1>Edit profile</h1>
+<h1>Upraviť profil</h1>
 
 <div th:if="${errorMessage != null}" th:text="${errorMessage}" style="color:red;"></div>
 
-<form th:action="@{/profil/edit}" th:object="${form}" method="post">
+<form th:action="@{/profil/edit}" th:object="${form}" method="post" enctype="multipart/form-data">
+
   <div>
-    <label>First name</label>
+    <label>Meno</label>
     <input type="text" th:field="*{firstName}" required>
     <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" style="color:red;"></div>
   </div>
 
   <div>
-    <label>Last name</label>
+    <label>Priezvisko</label>
     <input type="text" th:field="*{lastName}" required>
     <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" style="color:red;"></div>
   </div>
 
   <div>
-    <label>Phone</label>
+    <label>Telefón</label>
     <input type="text" th:field="*{phoneNumber}">
     <div th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}" style="color:red;"></div>
   </div>
 
   <div>
-    <label>Address</label>
+    <label>Adresa</label>
     <input type="text" th:field="*{address}" style="width: 380px;">
     <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color:red;"></div>
   </div>
 
+  <hr>
+
   <div>
-    <label>Profile image URL</label>
+    <label>Profilový obrázok (nahrať súbor)</label>
+    <input type="file" name="avatarFile" accept="image/png,image/jpeg,image/webp,image/*">
+  </div>
+
+  <div>
+    <label>Profilový obrázok (URL, voliteľné)</label>
     <input type="text" th:field="*{profileImageUrl}" style="width: 380px;">
     <div th:if="${#fields.hasErrors('profileImageUrl')}" th:errors="*{profileImageUrl}" style="color:red;"></div>
   </div>
 
-  <button type="submit">Save</button>
+  <button type="submit">Uložiť</button>
 </form>
 
 <p>
-  <a th:href="@{/profil}">Back to profile</a>
-  \| <a th:href="@{/profil/password}">Change password</a>
+  <a th:href="@{/profil}">Späť na profil</a>
+  | <a th:href="@{/profil/password}">Zmeniť heslo</a>
 </p>
 
 </body>
