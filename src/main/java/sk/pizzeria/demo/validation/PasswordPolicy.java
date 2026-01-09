@@ -19,6 +19,6 @@ public final class PasswordPolicy {
     }
 
     public static String hint() {
-        return "Password must be at least 10 characters and include uppercase, lowercase, digit, and special character (no spaces).";
+        return "Heslo musí obsahovať aspoň 10 znakov, 1 veľké písmeno, malé písmeno, číslo a špecialny znak (bez medzier)";
     }
 }

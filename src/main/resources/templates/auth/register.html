@@ -50,12 +50,6 @@
         <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color:red;"></div>
     </div>
 
-    <div>
-        <label>Profile image URL</label>
-        <input type="text" th:field="*{profileImageUrl}" style="width: 380px;">
-        <div th:if="${#fields.hasErrors('profileImageUrl')}" th:errors="*{profileImageUrl}" style="color:red;"></div>
-    </div>
-
     <button type="submit">Create account</button>
 </form>
 
