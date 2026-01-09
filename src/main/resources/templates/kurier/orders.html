@@ -10,8 +10,9 @@
 <a href="/pizze">← späť na ponuku</a>
 
 <h1>Kuriér - objednávky</h1>
-
-<h2>Objednávky na doručenie (「ready」, bez kuriéra)</h2>
+<br>
+<h2>Objednávky na doručenie</h2>
+<br>
 <div th:if="${#lists.isEmpty(openReady)}">Žiadne pripravené objednávky.</div>
 
 <table th:if="${!#lists.isEmpty(openReady)}" border="1" cellpadding="6">
