@@ -1,4 +1,3 @@
-<!-- FILE: src/main/resources/templates/fragments/navbar.html -->
 <!doctype html>
 <html lang="sk"
       xmlns:th="http://www.thymeleaf.org"
@@ -7,14 +6,11 @@
 <div th:fragment="navbar">
     <div>
         <a th:href="@{/pizze}">Pizzas</a>
-
         <span sec:authorize="isAuthenticated()">
-            | Logged in as: <strong sec:authentication="name">email</strong>
-            | Roles: <span sec:authentication="authorities">roles</span>
-            | <a th:href="@{/cart}">Cart</a>
-            | <a th:href="@{/profil}">My profile</a>
-            | <a th:href="@{/profil/edit}">Edit profile</a>
-            | <a th:href="@{/profil/password}">Change password</a>
+            | <a th:href="@{/cart}">Košík</a>
+            | <a th:href="@{/profil}">Môj profil</a>
+            | <a th:href="@{/profil/edit}">Upraviť profil</a>
+            | <a th:href="@{/profil/password}">Zmeniť heslo</a>
 
             <a sec:authorize="hasRole('COOK')" th:href="@{/kuchar/orders}">
                 Kitchen orders
@@ -25,13 +21,13 @@
             </a>
 
             <form th:action="@{/logout}" method="post" style="display:inline;">
-                <button type="submit">Logout</button>
+                <button type="submit">Odhlásiť</button>
             </form>
         </span>
 
         <span sec:authorize="isAnonymous()">
-            | <a th:href="@{/login}">Login</a>
-            | <a th:href="@{/register}">Register</a>
+            | <a th:href="@{/login}">Prihlásiť</a>
+            | <a th:href="@{/register}">Zaregistrovať</a>
         </span>
     </div>
     <hr>

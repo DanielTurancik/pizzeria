@@ -1,0 +1,602 @@
+/* FILE: src/main/resources/static/css/app.css */
+
+/* ---- Theme ---- */
+:root{
+    --bg: #1a0f0b;
+    --surface: rgba(255, 247, 237, .10);
+    --card: rgba(255, 247, 237, .12);
+    --text: #fff7ed;
+    --muted: rgba(255, 237, 213, .82);
+    --border: rgba(255, 237, 213, .18);
+
+    --link: #ffd6ad;
+    --primary: #e07a5f;
+    --primary-2: #f2a65a;
+    --ok: #3cb371;
+    --danger: #f59eae;
+
+    --radius: 14px;
+    --shadow: 0 14px 38px rgba(0,0,0,.40);
+    --shadow-soft: 0 10px 22px rgba(0,0,0,.24);
+    --maxw: 980px;
+
+    /* Typography scale */
+    --fs-body: 16.5px;
+    --fs-small: 0.95rem;
+    --fs-h1: clamp(1.9rem, 1.15rem + 2.2vw, 2.6rem);
+    --fs-h2: clamp(1.25rem, 1.05rem + 0.9vw, 1.55rem);
+    --fs-h3: 1.1rem;
+
+    --font: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans";
+}
+
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
+
+body{
+    margin: 0;
+    font-family: var(--font);
+    font-size: var(--fs-body);
+    color: var(--text);
+    line-height: 1.6;
+    text-rendering: optimizeLegibility;
+
+    background:
+            radial-gradient(900px 560px at 15% 0%, rgba(224, 122, 95, .12), transparent 62%),
+            radial-gradient(900px 560px at 85% 10%, rgba(60, 179, 113, .09), transparent 60%),
+            radial-gradient(1100px 700px at 50% 110%, rgba(242, 166, 90, .11), transparent 58%),
+            linear-gradient(180deg, #120a07, var(--bg));
+    background-attachment: fixed;
+}
+
+@media (prefers-reduced-motion: no-preference){
+    body{ animation: bgFloat 12s ease-in-out infinite alternate; }
+    @keyframes bgFloat{
+        from{ background-position: 0% 0%, 100% 0%, 50% 100%, 0 0; }
+        to{ background-position: 6% 2%, 94% 3%, 52% 96%, 0 0; }
+    }
+}
+
+/* ---- Typography ---- */
+h1, h2, h3{
+    margin: 0 0 12px 0;
+    line-height: 1.15;
+    letter-spacing: .2px;
+}
+h1{
+    font-size: var(--fs-h1);
+    font-weight: 900;
+    text-shadow: 0 10px 26px rgba(0,0,0,.35);
+}
+h2{
+    font-size: var(--fs-h2);
+    font-weight: 850;
+    opacity: .98;
+}
+h3{
+    font-size: var(--fs-h3);
+    font-weight: 850;
+}
+
+p{ margin: 0 0 12px 0; opacity: .96; }
+
+a{
+    color: var(--link);
+    text-decoration: none;
+    font-weight: 700;
+}
+a:hover{ text-decoration: underline; }
+
+strong{ font-weight: 900; letter-spacing: .15px; }
+
+hr{
+    border: 0;
+    border-top: 1px solid var(--border);
+    margin: 16px 0;
+}
+
+/* ---- Layout ---- */
+.container{
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 18px 16px 36px;
+}
+
+/* Keep content centered by default... */
+body > h1,
+body > h2,
+body > p,
+body > form,
+body > table,
+body > ul,
+body > div{
+    max-width: var(--maxw);
+    margin-left: auto;
+    margin-right: auto;
+}
+body > h1{ padding: 18px 16px 0; }
+body > h2{ padding: 10px 16px 0; }
+body > p,
+body > form,
+body > table,
+body > ul,
+body > div{ padding-left: 16px; padding-right: 16px; }
+
+/* ---- Cards ---- */
+.card{
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 16px;
+}
+
+/* ---- Forms ---- */
+form{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    box-shadow: var(--shadow-soft);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: 1rem;
+}
+form > div{ margin: 10px 0; }
+
+label{
+    display: inline-block;
+    color: var(--muted);
+    font-size: var(--fs-small);
+    margin-bottom: 6px;
+    font-weight: 750;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"],
+select,
+textarea{
+    width: 100%;
+    max-width: 540px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 237, 213, .22);
+    background: rgba(18, 10, 7, .42);
+    color: var(--text);
+    outline: none;
+    font-size: 1rem;
+    transition: box-shadow .15s ease, border-color .15s ease, transform .06s ease;
+}
+
+textarea{
+    max-width: 680px;
+    resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color: rgba(242, 166, 90, .70);
+    box-shadow: 0 0 0 3px rgba(242, 166, 90, .16);
+}
+
+input::placeholder{ color: rgba(255, 237, 213, .55); }
+
+/* inline forms in navbar/tables */
+form[style*="display:inline"]{
+    background: transparent;
+    border: 0;
+    padding: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+/* ---- Buttons ---- */
+button,
+a.button{
+    display: inline-block;
+    border: 1px solid rgba(242, 166, 90, .52);
+    background: linear-gradient(180deg, rgba(224, 122, 95, .16), rgba(242, 166, 90, .12));
+    color: var(--text);
+    padding: 9px 12px;
+    border-radius: 12px;
+    font-weight: 850;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform .06s ease, filter .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+button:hover,
+a.button:hover{
+    filter: brightness(1.06);
+    border-color: rgba(224, 122, 95, .56);
+    box-shadow: 0 10px 22px rgba(0,0,0,.22);
+    text-decoration: none;
+}
+button:active{ transform: translateY(1px); }
+button[disabled]{ opacity: .6; cursor: not-allowed; }
+
+/* ---- Tables ---- */
+table{
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    font-size: 1rem;
+}
+
+th, td{
+    padding: 10px 10px;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+}
+
+thead th{
+    text-align: left;
+    color: #fff7ed;
+    background: linear-gradient(90deg, rgba(224, 122, 95, .14), rgba(242, 166, 90, .12));
+    font-weight: 900;
+}
+
+tbody tr{ transition: background .12s ease; }
+tbody tr:hover{ background: rgba(255, 237, 213, .05); }
+
+/* ---- Lists ---- */
+ul{ list-style: none; padding-left: 0; }
+li{
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 1.02rem;
+}
+li:last-child{ border-bottom: 0; }
+
+/* ---- Images ---- */
+img{
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: 0 12px 28px rgba(0,0,0,.28);
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a img{ transition: transform .18s ease, filter .18s ease, box-shadow .18s ease; }
+a:hover img{
+    transform: scale(1.02);
+    filter: saturate(1.05) contrast(1.03);
+    box-shadow: 0 16px 36px rgba(0,0,0,.32);
+}
+
+/* ---- Inline red errors in templates ---- */
+[style*="color:red"]{
+    color: var(--danger) !important;
+    font-weight: 800;
+}
+
+/* =========================================================
+   NAVBAR OVERRIDES (MUST BE LAST)
+   Fragment HTML (rendered):
+   body > div   (wrapper inserted by th:replace)
+     > div      (bar content)
+     > hr
+   ========================================================= */
+
+/* Make only the navbar wrapper full-width; keep other body > div centered */
+body > div:first-child{
+    max-width: none !important;
+    width: 100%;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Bar layout */
+body > div:first-child > div{
+    width: 100%;
+    max-width: none !important;
+    margin: 0;
+    padding: 12px 16px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+
+    border-bottom: 1px solid var(--border);
+    background: rgba(26, 15, 11, .62);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+/* Left link ("Pizzas") */
+body > div:first-child > div > a:first-child{
+    font-weight: 900;
+    letter-spacing: .2px;
+    color: #fff7ed;
+    white-space: nowrap;
+}
+
+/* Right side group: spans for auth/anonymous */
+body > div:first-child > div > span{
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    color: var(--muted);
+}
+
+/* Hide literal " | " text nodes inside the span, keep elements visible */
+body > div:first-child > div > span{ font-size: 0; }
+body > div:first-child > div > span > *{ font-size: 1rem; }
+
+/* Pills for navbar links */
+body > div:first-child > div a{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 237, 213, .18);
+    background: rgba(255, 247, 237, .06);
+    color: var(--link);
+    text-decoration: none;
+    font-weight: 800;
+    line-height: 1;
+}
+
+body > div:first-child > div a:hover{
+    border-color: rgba(242, 166, 90, .42);
+    background: rgba(242, 166, 90, .10);
+    text-decoration: none;
+}
+
+/* Logout button matches pills */
+body > div:first-child > div form[style*="display:inline"] button{
+    padding: 7px 10px;
+    border-radius: 999px;
+    font-weight: 900;
+}
+
+/* Hide <hr> from fragment (bar already has a border) */
+body > div:first-child > hr{ display: none; }
+
+body{
+    /* gives a bit of breathing room under the navbar */
+    padding-bottom: 28px;
+}
+
+body > :is(h1,h2,h3){
+    scroll-margin-top: 72px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible{
+    outline: 3px solid rgba(242, 166, 90, .35);
+    outline-offset: 2px;
+    border-radius: 12px;
+}
+
+/* Make links that are "actions" look like buttons (but keep normal links normal) */
+a[href]:not(:has(img)){
+    text-underline-offset: 3px;
+}
+
+/* Generic "back" link (many pages have `← späť ...`) */
+a[href^="/"]:first-of-type{
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    margin-bottom: 8px;
+    opacity: .95;
+}
+
+/* =========================
+   FORMS (search/filter/checkout)
+   ========================= */
+
+/* common filter/search forms on list pages */
+form[method="get"]{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: end;
+    gap: 10px 12px;
+}
+
+form[method="get"] input[type="text"],
+form[method="get"] select{
+    max-width: 520px;
+}
+
+form[method="get"] button{
+    padding: 9px 14px;
+}
+
+/* "Reset" links next to filter buttons */
+form[method="get"] a[href]{
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 237, 213, .16);
+    background: rgba(255, 247, 237, .04);
+    text-decoration: none;
+    font-weight: 850;
+    line-height: 1;
+}
+form[method="get"] a[href]:hover{
+    background: rgba(242, 166, 90, .10);
+    border-color: rgba(242, 166, 90, .35);
+    text-decoration: none;
+}
+
+/* =========================
+   TABLES (orders/admin/cart)
+   ========================= */
+
+table[border]{
+    border: 0;
+}
+
+table td a{
+    font-weight: 850;
+}
+
+table td form[style*="display:inline"] button{
+    padding: 7px 10px;
+    border-radius: 12px;
+}
+
+/* compact +/- buttons in cart */
+table td form[style*="display:inline"] button:is(:contains("+"), :contains("-")){
+    min-width: 40px;
+}
+
+/* =========================
+   PIZZA LIST (`/pizze`)
+   ========================= */
+
+/* list rows: title/desc + optional image */
+ul > li{
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px 18px;
+    align-items: start;
+}
+
+ul > li > div:first-child{
+    min-width: 0;
+}
+
+ul > li > div:first-child strong{
+    font-size: 1.08rem;
+}
+
+ul > li > div:first-child span{
+    display: block;
+    margin-top: 4px;
+    color: var(--muted);
+}
+
+ul > li img[style*="max-width:200px"]{
+    width: 200px;
+    max-width: 200px;
+}
+
+/* responsive: stack image under text on narrow screens */
+@media (max-width: 720px){
+    ul > li{
+        grid-template-columns: 1fr;
+    }
+    ul > li img[style*="max-width:200px"]{
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* =========================
+   PIZZA DETAIL (`/pizza/{slug}`)
+   ========================= */
+
+img[style*="max-width:400px"]{
+    width: min(400px, 100%);
+    margin-top: 10px;
+}
+
+body > ul{
+    margin-top: 6px;
+}
+
+body > ul > li{
+    grid-template-columns: 1fr;
+}
+
+body > ul > li form[style*="display:inline"] button{
+    margin-left: 10px;
+    padding: 7px 10px;
+}
+
+/* =========================
+   PROFILE PAGES
+   ========================= */
+
+img[alt="profile"][style*="max-width:200px"]{
+    width: min(200px, 100%);
+}
+
+p:has(a[href*="/profil"]){
+    margin-top: 14px;
+    color: var(--muted);
+}
+p:has(a[href*="/profil"]) a{
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 237, 213, .16);
+    background: rgba(255, 247, 237, .05);
+    text-decoration: none;
+    font-weight: 850;
+}
+p:has(a[href*="/profil"]) a:hover{
+    background: rgba(242, 166, 90, .10);
+    border-color: rgba(242, 166, 90, .35);
+    text-decoration: none;
+}
+
+/* =========================
+   CART (`/cart`)
+   ========================= */
+
+h2 + form[method="post"]{
+    margin-top: 10px;
+}
+
+h2 + form[method="post"] input[type="text"],
+h2 + form[method="post"] textarea{
+    max-width: 520px;
+}
+
+/* =========================
+   AUTH (`/login`, `/register`)
+   ========================= */
+
+body > h1 + form{
+    margin-top: 12px;
+}
+
+body > h1 + form input{
+    max-width: 520px;
+}
+
+/* =========================
+   ADMIN USERS
+   ========================= */
+
+body:has(h1:contains("Admin")) table td:last-child{
+    white-space: nowrap;
+}
+
+body:has(h1:contains("Admin")) table td:last-child a{
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 237, 213, .16);
+    background: rgba(255, 247, 237, .05);
+    text-decoration: none;
+    font-weight: 850;
+}
+body:has(h1:contains("Admin")) table td:last-child a:hover{
+    background: rgba(242, 166, 90, .10);
+    border-color: rgba(242, 166, 90, .35);
+    text-decoration: none;
+}

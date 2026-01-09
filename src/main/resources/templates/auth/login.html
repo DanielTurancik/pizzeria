@@ -1,9 +1,9 @@
-<!-- FILE: src/main/resources/templates/auth/login.html -->
 <!doctype html>
 <html lang="sk" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Prihlásenie</title>
+    <link rel="stylesheet" th:href="@{/css/auth-login.css}">
 </head>
 <body>
 <h1>Prihlásenie</h1>
@@ -21,7 +21,7 @@
 </form>
 
 <div th:if="${param.registered}">
-    Account created. You can log in now.
+    Ucet vytvoreny. Mozte sa teraz prihlasit.
 </div>
 
 <div th:if="${param.error}">

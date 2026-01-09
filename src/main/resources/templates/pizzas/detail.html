@@ -4,9 +4,12 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${pizza.name}">Detail pizze</title>
+    <title>Pizza detail</title>
+    <link rel="stylesheet" th:href="@{/css/pizzas-detail.css}">
 </head>
 <body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <a href="/pizze">← späť na ponuku</a>
 

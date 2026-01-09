@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Registrácia</title>
+    <link rel="stylesheet" th:href="@{/css/auth-register.css}">
 </head>
 <body>
 
@@ -50,10 +51,10 @@
         <div th:if="${#fields.hasErrors('address')}" th:errors="*{address}" style="color:red;"></div>
     </div>
 
-    <button type="submit">Create account</button>
+    <button type="submit">Vytvoriť účet</button>
 </form>
 
-<p><a th:href="@{/login}">Back to login</a></p>
+<p><a th:href="@{/login}">Späť na prihlásenie</a></p>
 
 </body>
 </html>

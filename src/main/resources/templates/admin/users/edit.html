@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="sk" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit user</title>
+  <link rel="stylesheet" th:href="@{/css/admin-users-edit.css}">
+</head>
+<body>
+
+<h1>Edit user \#<span th:text="${user.id}">1</span></h1>
+
+<p>E\-mail: <strong th:text="${user.email}">mail</strong></p>
+
+<form th:action="@{'/admin/users/' + ${user.id} + '/edit'}" method="post" th:object="${form}">
+  <div>
+    <label>First name</label><br>
+    <input type="text" th:field="*{firstName}">
+    <div th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+  </div>
+
+  <div>
+    <label>Last name</label><br>
+    <input type="text" th:field="*{lastName}">
+    <div th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+  </div>
+
+  <div>
+    <label>Phone</label><br>
+    <input type="text" th:field="*{phoneNumber}">
+  </div>
+
+  <div>
+    <label>Address</label><br>
+    <input type="text" th:field="*{address}" style="width: 420px;">
+  </div>
+
+  <div>
+    <label>Roles</label><br>
+    <div th:each="r : ${allRoles}">
+      <label>
+        <input type="checkbox" th:value="${r.id}" th:field="*{roleIds}">
+        <span th:text="${r.name}">ROLE\_ADMIN</span>
+      </label><br>
+    </div>
+    <div th:if="${#fields.hasErrors('roleIds')}" th:errors="*{roleIds}"></div>
+  </div>
+
+  <button type="submit">Save</button>
+  <a th:href="@{/admin/users}">Back</a>
+</form>
+
+</body>
+</html>

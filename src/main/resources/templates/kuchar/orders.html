@@ -1,15 +1,15 @@
-<!-- FILE: src/main/resources/templates/kuchar/orders.html -->
 <!doctype html>
 <html lang="sk" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Kuchár \- objednávky</title>
+    <title>Kuchár - objednávky</title>
+    <link rel="stylesheet" th:href="@{/css/kuchar-orders.css}">
 </head>
 <body>
 
 <a href="/pizze">← späť na ponuku</a>
 
-<h1>Kuchár \- objednávky</h1>
+<h1>Kuchár - objednávky</h1>
 
 <h2>Otvorené objednávky \(\「pending」, bez kuchára\)</h2>
 <div th:if="${#lists.isEmpty(openPending)}">Žiadne otvorené objednávky.</div>

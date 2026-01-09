@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="sk" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - Users</title>
+    <link rel="stylesheet" th:href="@{/css/admin-users-list.css}">
+</head>
+<body>
+
+<h1>Admin \- Users</h1>
+
+<form method="get" th:action="@{/admin/users}">
+    <input type="text" name="q" placeholder="Search by email/name" th:value="${q}">
+    <button type="submit">Search</button>
+    <a th:href="@{/admin/users}">Reset</a>
+</form>
+
+<table border="1" cellpadding="6">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>E-mail</th>
+        <th>Name</th>
+        <th>Enabled</th>
+        <th>Roles</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="u : ${users}">
+        <td th:text="${u.id}">1</td>
+        <td th:text="${u.email}">mail</td>
+        <td th:text="${u.firstName + ' ' + u.lastName}">name</td>
+        <td th:text="${u.enabled}">true</td>
+        <td th:text="${#strings.listJoin(u.roles.![name], ', ')}">ROLE\_CUSTOMER</td>
+        <td>
+            <a th:href="@{'/admin/users/' + ${u.id} + '/edit'}">Edit</a>
+            <form th:action="@{'/admin/users/' + ${u.id} + '/toggle-enabled'}" method="post" style="display:inline;">
+                <button type="submit">Toggle enabled</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
